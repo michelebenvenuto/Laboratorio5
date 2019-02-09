@@ -28,7 +28,8 @@
                 <data android:mimeType="text/plain"></data>
             </intent-filter>
         </activity>
-        <provider android:authorities=".com.example.hp.contactaplication" android:name=".ContactsProvider"/>
+        <provider android:name=".ContactsProvider"
+                  android:authorities="com.example.hp.contactaplication.ContactsProvider" />
     </application>
 
 </manifest>

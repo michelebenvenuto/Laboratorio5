@@ -1,10 +1,12 @@
 package com.example.hp.contactaplication.Views
 
+import android.content.ContentValues
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.hp.contactaplication.ContactsProvider
 import com.example.hp.contactaplication.MainActivity
 import com.example.hp.contactaplication.Models.Contact
 import com.example.hp.contactaplication.MyApplication
@@ -23,12 +25,12 @@ class NewContactActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun addContact(view: View){
-        val name =nameInput.text.toString()
-        val phone=phoneInput.text.toString()
-        val email=emailInput.text.toString()
-        val contactToAdd= Contact(phone,name,email)
-        if (name!="" && phone!=""&& email!=""){
-            MyApplication.Contacts.add(contactToAdd)
+        val values = ContentValues()
+        values.put(ContactsProvider.NAME, nameInput.text.toString())
+        values.put(ContactsProvider.TEL, phoneInput.text.toString())
+        values.put(ContactsProvider.MAIL, emailInput.text.toString())
+        if (nameInput.text.toString() !="" && phoneInput.text.toString()!=""&& emailInput.text.toString()!=""){
+            val uri = contentResolver.insert(ContactsProvider.CONTET_URI,values)
             Toast.makeText(applicationContext,"Se ha agregado el contacto de manera exitosa",Toast.LENGTH_SHORT).show()
         }
         else{
