@@ -18,24 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        MyApplication.Contacts.clear()
         //sirve para el adapter
-        val contacts = ArrayList<String>()
         val URL = "content://com.example.hp.contactaplication.ContactsProvider"
         val contact= Uri.parse(URL)
-        val c = contentResolver.query(contact, null, null, null, "name")
+        val c = contentResolver.query(contact, null, null, null, "_id")
         //logica para poner toda la informacion necesaria en la list view y ademas agregar la necesaria a my application
-        if (c.moveToFirst()){
-            do {
-                contacts.add(c.getString(c.getColumnIndex(ContactsProvider.NAME))+" "+c.getString(c.getColumnIndex(ContactsProvider.TEL)))
-                val newContact = Contact(c.getString(c.getColumnIndex(ContactsProvider.TEL)),c.getString(c.getColumnIndex(ContactsProvider.NAME)),c.getString(c.getColumnIndex(ContactsProvider.MAIL)))
-                MyApplication.Contacts.add(newContact)
-            }while (c.moveToNext())
-        }
-        c.close()
 
 
-        val adapter= ArrayAdapter(this, android.R.layout.simple_list_item_1,contacts)
+
+        val adapter= ArrayAdapter(this, android.R.layout.simple_list_item_1,MyApplication.Contacts)
         ContactView.adapter= adapter
 
 
@@ -50,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         ContactView.onItemLongClickListener= object: AdapterView.OnItemLongClickListener {
             override fun onItemLongClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long): Boolean {
                 contentResolver.delete(ContactsProvider.CONTET_URI,position.toString(),null)
-                contacts.remove(contacts.get(position))
                 MyApplication.Contacts.removeAt(position)
                 adapter.notifyDataSetChanged()
                 return true

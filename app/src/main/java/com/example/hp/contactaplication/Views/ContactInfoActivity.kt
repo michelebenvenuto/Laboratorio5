@@ -11,6 +11,7 @@ import com.example.hp.contactaplication.MainActivity
 import com.example.hp.contactaplication.MyApplication
 import com.example.hp.contactaplication.R
 import kotlinx.android.synthetic.main.activity_contact_info.*
+import kotlinx.android.synthetic.main.activity_contact_info.view.*
 import java.lang.reflect.Array
 import java.util.jar.Manifest
 
@@ -53,6 +54,14 @@ class ContactInfoActivity : AppCompatActivity() {
     }
     fun retrun(view: View){
         val intent: Intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+    }
+    fun edit(view:View){
+        val intent: Intent = Intent(this,EditActivity::class.java)
+        intent.putExtra("currentName",nameView.text)
+        intent.putExtra("currentTel",phoneNumberView.text)
+        intent.putExtra("currentMail",emailView.text)
+        intent.putExtra("item",intent.getIntExtra("itemToGet",0))
         startActivity(intent)
     }
 

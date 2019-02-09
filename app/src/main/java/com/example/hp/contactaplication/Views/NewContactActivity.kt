@@ -31,6 +31,8 @@ class NewContactActivity : AppCompatActivity() {
         values.put(ContactsProvider.MAIL, emailInput.text.toString())
         if (nameInput.text.toString() !="" && phoneInput.text.toString()!=""&& emailInput.text.toString()!=""){
             val uri = contentResolver.insert(ContactsProvider.CONTET_URI,values)
+            MyApplication.Contacts.add(Contact(phoneInput.text.toString(),nameInput.text.toString(),emailInput.text.toString()))
+
             Toast.makeText(applicationContext,"Se ha agregado el contacto de manera exitosa",Toast.LENGTH_SHORT).show()
         }
         else{
